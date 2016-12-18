@@ -15,10 +15,10 @@ A Stream: BRO IDS logs
 An Input: ids-tcp-input on port 15514
 And some pipeline rules to get started with
 
-# Requirments
-You must be running Graylog v2.2.0 or later because of the split pipeline function
-Bro 2.4.1 running on Security Onion
-Security Onion v14.04.x.x
+# Requirements
+You must be running Graylog v2.2.0 or later because of the split pipeline function  
+Bro 2.4.1 running on Security Onion  
+Security Onion v14.04.x.x  
 
 # Setup Steps
 Configure Security Onion instance with SYSLOG-NG sending logs to a remote destination.
