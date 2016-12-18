@@ -23,11 +23,12 @@ Security Onion v14.04.x.x
 # Setup Steps
 Configure Security Onion instance with SYSLOG-NG sending logs to a remote destination.
 
-1.  Configure Graylog Input (Installed with Content pack)
-2.  Configure Stream for Graylog (Installed with Content pack)
-3.  Point Security Onion Sensor to Graylog (Manual Config on SO sensor)
-4.  Configure Pipeline Rules (http://docs.graylog.org/en/2.1/pages/pipelines/usage.html#manage-rules)
-5.  Configure Pipeline to process Rules (http://docs.graylog.org/en/2.1/pages/pipelines/usage.html#managing-pipelines)
+ 1. Configure Graylog Input (Installed with Content pack)
+ 2. Configure Stream for Graylog (Installed with Content pack)
+ 3. Point Security Onion Sensor to Graylog (Manual Config on SO sensor)
+ 4. Configure Pipeline Rules (http://docs.graylog.org/en/2.1/pages/pipelines/usage.html#manage-rules)
+ 5. Configure Pipeline to process Rules (http://docs.graylog.org/en/2.1/pages/pipelines/usage.html#managing-pipelines)
 
-    For a more detailed walk-through on setup for steps 1-3
-    http://alias454.com/send-security-onion-logs-to-a-centralized-graylog-server/
+
+        For a more detailed walk-through on setup for steps 1-3
+        http://alias454.com/send-security-onion-logs-to-a-centralized-graylog-server/
