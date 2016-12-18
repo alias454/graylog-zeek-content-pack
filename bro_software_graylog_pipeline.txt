@@ -1,0 +1,19 @@
+rule "Extract bro_software log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "bro_software", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+  
+  set_field("ts", m[0]);
+  set_field("id_orig_h", m[1]);
+  set_field("id_orig_p", to_long(m[2]));
+  set_field("software_type", m[3]);
+  set_field("name", m[4]);
+  set_field("version_major", m[5]);
+  set_field("version_minor", m[6]);
+  set_field("version_minor2", m[7]);
+  set_field("version_minor3", m[8]);
+  set_field("version_addl", m[9]);
+  set_field("unparsed_version", m[10]);
+end

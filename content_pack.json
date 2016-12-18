@@ -1,0 +1,235 @@
+{
+	"name": "BRO IDS",
+	"description": "BRO IDS content pack contains pipeline rules, a stream, a dashboard displaying interesting activity, and a syslog tcp input to capture and index BRO logs coming from a Security Onion sensor.",
+	"category": "Intrusion Detection",
+	"inputs": [{
+		"title": "ids-tcp-input",
+		"configuration": {
+			"recv_buffer_size": 212992,
+			"tcp_keepalive": false,
+			"use_null_delimiter": false,
+			"tls_client_auth_cert_file": "",
+			"force_rdns": false,
+			"bind_address": "0.0.0.0",
+			"tls_cert_file": "",
+			"store_full_message": false,
+			"expand_structured_data": false,
+			"port": 15514,
+			"tls_key_file": "",
+			"tls_enable": false,
+			"tls_key_password": "",
+			"max_message_size": 2097152,
+			"tls_client_auth": "disabled",
+			"override_source": null,
+			"allow_override_date": true
+		},
+		"static_fields": {
+			
+		},
+		"type": "org.graylog2.inputs.syslog.tcp.SyslogTCPInput",
+		"global": true,
+		"extractors": []
+	}],
+	"streams": [{
+		"id": "584195567d5d44076c4160f7",
+		"title": "BRO IDS logs",
+		"description": "Log messages from BRO IDS",
+		"disabled": false,
+		"matching_type": "AND",
+		"stream_rules": [{
+			"type": "REGEX",
+			"field": "application_name",
+			"value": "bro_*",
+			"inverted": false,
+			"description": ""
+		}],
+		"outputs": [],
+		"default_stream": false
+	}],
+	"outputs": [],
+	"dashboards": [{
+		"title": "BRO IDS Information - Last 24 Hours",
+		"description": "Display information collected from BRO running on Security Onion",
+		"dashboard_widgets": [{
+			"description": "Application Log Collections",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 300
+				},
+				"field": "application_name",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 3,
+			"row": 3,
+			"height": 2,
+			"width": 1
+		},
+		{
+			"description": "HTTP Methods",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "method",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "NOT method:\\-",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 1,
+			"row": 5,
+			"height": 1,
+			"width": 1
+		},
+		{
+			"description": "Top DNS Queries - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "query",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 3,
+			"row": 1,
+			"height": 2,
+			"width": 1
+		},
+		{
+			"description": "Top User Agents - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "user_agent",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "NOT user_agent:\\-",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 2,
+			"row": 1,
+			"height": 2,
+			"width": 1
+		},
+		{
+			"description": "Software Versions - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "unparsed_version",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "application_name:bro_software",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 1,
+			"row": 1,
+			"height": 2,
+			"width": 1
+		},
+		{
+			"description": "Status Codes - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "status_code",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 2,
+			"row": 3,
+			"height": 2,
+			"width": 1
+		},
+		{
+			"description": "Software by Type - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "software_type",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "application_name:bro_software",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 1,
+			"row": 3,
+			"height": 1,
+			"width": 1
+		},
+		{
+			"description": "DNS Response Codes - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "rcode_name",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "NOT rcode_name:\\-",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 1,
+			"row": 4,
+			"height": 1,
+			"width": 1
+		},
+		{
+			"description": "Tunnel Types - last 24 hours",
+			"type": "QUICKVALUES",
+			"cache_time": 10,
+			"configuration": {
+				"timerange": {
+					"type": "relative",
+					"range": 86400
+				},
+				"field": "tunnel_type",
+				"stream_id": "584195567d5d44076c4160f7",
+				"query": "application_name:bro_tunnels",
+				"show_data_table": true,
+				"show_pie_chart": false
+			},
+			"col": 2,
+			"row": 5,
+			"height": 1,
+			"width": 1
+		}]
+	}],
+	"grok_patterns": []
+}
