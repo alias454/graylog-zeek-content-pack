@@ -1,0 +1,31 @@
+rule "Extract bro_files log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "bro_files", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", m[0]);
+  set_field("fuid", m[1]);
+  set_field("tx_hosts", m[2]);
+  set_field("rx_hosts", m[3]);
+  set_field("conn_uids", m[4]);
+  set_field("f_source", m[5]);
+  set_field("depth",to_long(m[6]));
+  set_field("analyzers", m[7]);
+  set_field("mime_type", m[8]);
+  set_field("filename", m[9]);
+  set_field("duration",to_long(m[10]));
+  set_field("local_orig", m[11]);
+  set_field("is_orig", m[12]);
+  set_field("seen_bytes",to_long(m[13]));
+  set_field("total_bytes",to_long(m[14]));
+  set_field("missing_bytes",to_long(m[15]));
+  set_field("overflow_bytes",to_long(m[16]));
+  set_field("timedout", m[17]);
+  set_field("parent_fuid", m[18]);
+  set_field("md5", m[19]);
+  set_field("sha1", m[20]);
+  set_field("sha256", m[21]);
+  set_field("extracted", m[22]);
+end
