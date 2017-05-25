@@ -1,0 +1,23 @@
+rule "Extract bro_snmp log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "bro_snmp", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", m[0]);
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", m[3]);
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", m[5]);
+  set_field("duration", to_long(m[6]));
+  set_field("version", m[7]);
+  set_field("community", m[8]);
+  set_field("get_requests", to_long(m[9]));
+  set_field("get_bulk_requests", to_long(m[10]));
+  set_field("get_responses", to_long(m[11]));
+  set_field("set_requests", to_long(m[12]));
+  set_field("display_string", m[13]);
+  set_field("up_since", m[14]);
+end
