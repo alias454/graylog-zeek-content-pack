@@ -5,7 +5,7 @@ when
 then
   let m = split("\\|", to_string($message.message));
 
-  set_field("ts", m[0]);
+  set_field("ts", to_double(m[0]));
   set_field("uid", m[1]);
   set_field("id_orig_h", m[2]);
   set_field("id_orig_p", to_long(m[3]));

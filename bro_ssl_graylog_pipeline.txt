@@ -5,12 +5,12 @@ when
 then
   let m = split("\\|", to_string($message.message));
 
-  set_field("ts", m[0]);
+  set_field("ts", to_double(m[0]));
   set_field("uid", m[1]);
   set_field("id_orig_h", m[2]);
-  set_field("id_orig_p", m[3]);
+  set_field("id_orig_p", to_long(m[3]));
   set_field("id_resp_h", m[4]);
-  set_field("id_resp_p", m[5]);
+  set_field("id_resp_p", to_long(m[5]));
   set_field("version", m[6]);
   set_field("cipher", m[7]);
   set_field("curve", m[8]);

@@ -5,14 +5,14 @@ when
 then
   let m = split("\\|", to_string($message.message));
 
-  set_field("ts", m[0]);
+  set_field("ts", to_double(m[0]));
   set_field("id", m[1]);
   set_field("certificate_version", to_long(m[2]));
   set_field("certificate_serial", m[3]);
   set_field("certificate_subject", m[4]);
   set_field("certificate_issuer", m[5]);
-  set_field("certificate_not_valid_before", m[6]);
-  set_field("certificate_not_valid_after", m[7]);
+  set_field("certificate_not_valid_before", to_double(m[6]));
+  set_field("certificate_not_valid_after", to_double(m[7]));
   set_field("certificate_key_alg", m[8]);
   set_field("certificate_sig_alg", m[9]);
   set_field("certificate_key_type", m[10]);

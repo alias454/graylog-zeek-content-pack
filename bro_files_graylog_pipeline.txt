@@ -5,7 +5,7 @@ when
 then
   let m = split("\\|", to_string($message.message));
 
-  set_field("ts", m[0]);
+  set_field("ts", to_double(m[0]));
   set_field("fuid", m[1]);
   set_field("tx_hosts", m[2]);
   set_field("rx_hosts", m[3]);
@@ -15,7 +15,7 @@ then
   set_field("analyzers", m[7]);
   set_field("mime_type", m[8]);
   set_field("filename", m[9]);
-  set_field("duration",to_long(m[10]));
+  set_field("duration",to_double(m[10]));
   set_field("local_orig", m[11]);
   set_field("is_orig", m[12]);
   set_field("seen_bytes",to_long(m[13]));

@@ -5,7 +5,7 @@ when
 then
   let m = split("\\|", to_string($message.message));
 
-  set_field("ts", m[0]);
+  set_field("ts", to_double(m[0]));
   set_field("uid", m[1]);
   set_field("id_orig_h", m[2]);
   set_field("id_orig_p", to_long(m[3]));
@@ -17,7 +17,7 @@ then
   set_field("success", m[9]);
   set_field("error_msg", m[10]);
   set_field("from", m[11]);
-  set_field("till", m[12]);
+  set_field("till", to_double(m[12]));
   set_field("cipher", m[13]);
   set_field("forwardable", m[14]);
   set_field("renewable", m[15]);

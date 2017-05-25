@@ -5,10 +5,10 @@ when
 then
   let m = split("\\|", to_string($message.message));
 
-  set_field("ts", m[0]);
+  set_field("ts", to_double(m[0]));
   set_field("id", m[1]);
   set_field("machine", m[2]);
-  set_field("compile_ts", m[3]);
+  set_field("compile_ts", to_double(m[3]));
   set_field("os", m[4]);
   set_field("subsystem", m[5]);
   set_field("is_exe", m[6]);
