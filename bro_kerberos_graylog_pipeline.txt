@@ -15,14 +15,15 @@ then
   set_field("client", m[7]);
   set_field("service", m[8]);
   set_field("success", m[9]);
-  set_field("error_msg", m[10]);
-  set_field("from", m[11]);
-  set_field("till", to_double(m[12]));
-  set_field("cipher", m[13]);
-  set_field("forwardable", m[14]);
-  set_field("renewable", m[15]);
-  set_field("client_cert_subject", m[16]);
-  set_field("client_cert_fuid", m[17]);
-  set_field("server_cert_subject", m[18]);
-  set_field("server_cert_fuid", m[19]);
+  set_field("error_code", m[10]);
+  set_field("error_msg", m[11]);
+  set_field("from", m[12]);
+  set_field("till", to_double(m[13]));
+  set_field("cipher", m[14]);
+  set_field("forwardable", m[15]);
+  set_field("renewable", m[16]);
+  set_field("client_cert_subject", m[17]);
+  set_field("client_cert_fuid", m[18]);
+  set_field("server_cert_subject", m[19]);
+  set_field("server_cert_fuid", m[20]);
 end
