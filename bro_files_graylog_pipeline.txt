@@ -10,7 +10,7 @@ then
   set_field("tx_hosts", m[2]);
   set_field("rx_hosts", m[3]);
   set_field("conn_uids", m[4]);
-  set_field("f_source", m[5]);
+  set_field("source", m[5]);
   set_field("depth",to_long(m[6]));
   set_field("analyzers", m[7]);
   set_field("mime_type", m[8]);
