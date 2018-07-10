@@ -26,9 +26,9 @@ then
   set_field("actions", m[18]);
   set_field("suppress_for", m[19]);
   set_field("dropped", m[20]);
-  set_field("remote_location_country_code", m[21]);
-  set_field("remote_location_region", m[22]);
-  set_field("remote_location_city", m[23]);
-  set_field("remote_location_latitude", m[24]);
-  set_field("remote_location_longitude", m[25]);
+  //set_field("remote_location_country_code", m[21]); //If policy/protocols/ssh/geo-data.bro is loaded
+  //set_field("remote_location_region", m[22]); //If policy/protocols/ssh/geo-data.bro is loaded
+  //set_field("remote_location_city", m[23]); //If policy/protocols/ssh/geo-data.bro is loaded
+  //set_field("remote_location_latitude", m[24]); //If policy/protocols/ssh/geo-data.bro is loaded
+  //set_field("remote_location_longitude", m[25]); //If policy/protocols/ssh/geo-data.bro is loaded
 end
