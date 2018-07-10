@@ -26,4 +26,5 @@ then
   set_field("cert_permanent", m[18]);
   set_field("encryption_level", m[19]);
   set_field("encryption_method", m[20]);
+  //set_field("ssl", m[0]); //if policy/protocols/rdp/indicate_ssl.bro is loaded
 end
