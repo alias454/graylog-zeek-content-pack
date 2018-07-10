@@ -1,7 +1,7 @@
-rule "Extract bro_tunnels log fields"
+rule "Extract bro_tunnel log fields"
 when
   has_field("application_name") &&
-  contains(value: to_string($message.application_name), search: "bro_tunnels", ignore_case: true)
+  contains(value: to_string($message.application_name), search: "bro_tunnel", ignore_case: true)
 then
   let m = split("\\|", to_string($message.message));
 
