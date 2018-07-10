@@ -16,4 +16,7 @@ then
   set_field("remote_ip", m[8]);
   set_field("connect_info", m[9]);
   set_field("result", m[10]);
+  set_field("framed_addr", m[11]);
+  set_field("reply_msg", m[12]);
+  set_field("ttl", m[13]);
 end
