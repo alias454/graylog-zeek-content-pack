@@ -24,5 +24,4 @@ then
   set_field("data_channel_resp_h", m[16]);
   set_field("data_channel_resp_p", to_long(m[17]));
   set_field("fuid", m[18]);
-
 end
