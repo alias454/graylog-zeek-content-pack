@@ -31,5 +31,5 @@ then
   set_field("user_agent", m[23]);
   set_field("tls", m[24]);
   set_field("fuids", m[25]);
-  set_field("is_webmail", m[26]);
+  set_field("is_webmail", m[26]); //If policy/protocols/smtp/software.bro is loaded
 end
