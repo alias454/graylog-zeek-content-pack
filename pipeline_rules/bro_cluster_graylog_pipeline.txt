@@ -1,0 +1,12 @@
+rule "Extract bro_cluster log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "bro_cluster", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  //set_field("<field>", m[<id_num>]);
+  set_field("ts", m[0]);
+  set_field("node", m[1]);
+  set_field("message", m[2]);
+end
