@@ -26,10 +26,10 @@ then
   set_field("resp_pkts", to_long(m[18]));
   set_field("resp_ip_bytes", to_long(m[19]));
   set_field("tunnel_parents", m[20]);
-  set_field("orig_I2_addr", m[21]);
-  set_field("resp_I2_addr", m[22]);
-  set_field("vlan", m[23]);
-  set_field("inner_vlan", m[24]);
+  //set_field("orig_I2_addr", m[21]);
+  //set_field("resp_I2_addr", m[22]);
+  //set_field("vlan", m[23]);
+  //set_field("inner_vlan", m[24]);
   //set_field("orig_cc", m[25]);    // Used with Security Onion
   //set_field("resp_cc", m[26]);    // Used with Security Onion
   //set_field("sensorname", m[27]); // Used with Security Onion
