@@ -15,22 +15,18 @@ then
   set_field("cipher", m[7]);
   set_field("curve", m[8]);
   set_field("server_name", m[9]);
-  set_field("session_id", m[10]);
-  set_field("resumed", m[11]);
-  set_field("last_alert", m[12]);
-  set_field("next_protocol", m[13]);
-  set_field("established", m[14]);
-  set_field("cert_chain", m[15]);
-  set_field("cert_chain_fuids", m[16]);
-  set_field("client_cert_chain", m[17]);
-  set_field("client_cert_chain_fuids", m[18]);
-  set_field("subject", m[19]);
-  set_field("issuer", m[20]);
-  set_field("client_subject", m[21]);
-  set_field("client_issuer", m[22]);
-  //set_field("validation_status", m[23]); //If policy/protocols/ssl/validate-certs.bro is loaded
-  //set_field("ocsp_status", m[24]); //If policy/protocols/ssl/validate-certs.bro is loaded
-  //set_field("ocsp_response", m[25]); //If policy/protocols/ssl/validate-certs.bro is loaded
-  //set_field("notary", m[26]); //If policy/protocols/ssl/notary.bro is loaded
-
+  set_field("resumed", m[10]);
+  set_field("last_alert", m[11]);
+  set_field("next_protocol", m[12]);
+  set_field("established", m[13]);
+  set_field("cert_chain_fuids", m[14]);
+  set_field("client_cert_chain_fuids", m[15]);
+  set_field("subject", m[16]);
+  set_field("issuer", m[17]);
+  set_field("client_subject", m[18]);
+  set_field("client_issuer", m[19]);
+  set_field("validation_status", m[20]);
+  //set_field("ocsp_status", m[21]); //If policy/protocols/ssl/validate-certs.bro is loaded
+  //set_field("ocsp_response", m[22]); //If policy/protocols/ssl/validate-certs.bro is loaded
+  //set_field("notary", m[23]); //If policy/protocols/ssl/notary.bro is loaded
 end
