@@ -15,7 +15,7 @@ A Stream: BRO IDS logs
 An Input: ids-tcp-input on port 15514  
 Pipeline rules to get started with  
 Rsyslog conf to get started with  
-  > **00-bro.conf** should go in the /etc/rsyslog.d/ directory after editing the appropriate values for yur setup
+  > **00-bro.conf** should go in the /etc/rsyslog.d/ directory after editing the appropriate values for your setup
   > If selinux is enabled run **semanage port -a -t syslogd_port_t -p tcp 15514**
 
 # Requirements
