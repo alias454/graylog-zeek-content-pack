@@ -11,5 +11,5 @@ then
   set_field("ev", m[2]);
   set_field("peer_address", m[4]);
   set_field("peer_bound_port", m[5]);
-  set_field("message", m[6]);
+  set_field("msg", m[6]);
 end
