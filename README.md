@@ -1,12 +1,12 @@
 # graylog-bro-content-pack
-BRO IDS content pack contains pipeline rules, a stream, a dashboard displaying interesting activity, and a syslog tcp input to capture and index BRO logs coming from a Security Onion sensor. 
+BRO/Zeek IDS content pack contains pipeline rules, a stream, a dashboard displaying interesting activity, and a syslog tcp input to capture and index logs coming from a BRO/Zeek sensor. 
 
-If you are not using Security Onion, the log files might be different and not contain the same exact fields. Also, if you are using an older version of Security Onion, these setting may not match either.
+If you are using Security Onion or an older versin of BRO/Zeek, the log files might be different and not contain the same exact fields.
 
     See the full Description of BRO IDS Default Log files
     https://www.bro.org/sphinx/script-reference/log-files.html
 
-    Working with BRO logs
+    Working with BRO logs 
     https://www.bro.org/sphinx/logs/index.html#working-with-log-files
 
 # Provided Content
