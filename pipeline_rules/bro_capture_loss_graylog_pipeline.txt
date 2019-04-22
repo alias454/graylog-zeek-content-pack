@@ -11,5 +11,5 @@ then
   set_field("peer", m[2]);
   set_field("gaps", to_long(m[3]));
   set_field("acks", to_long(m[4]));
-  set_field("percent_lost", to_long(m[5]));
+  set_field("percent_lost", to_double(m[5]));
 end
