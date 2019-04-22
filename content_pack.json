@@ -1,235 +1,1868 @@
 {
-	"name": "BRO IDS",
-	"description": "BRO IDS content pack contains pipeline rules, a stream, a dashboard displaying interesting activity, and a syslog tcp input to capture and index BRO logs coming from a Security Onion sensor.",
-	"category": "Intrusion Detection",
-	"inputs": [{
-		"title": "ids-tcp-input",
-		"configuration": {
-			"recv_buffer_size": 212992,
-			"tcp_keepalive": false,
-			"use_null_delimiter": false,
-			"tls_client_auth_cert_file": "",
-			"force_rdns": false,
-			"bind_address": "0.0.0.0",
-			"tls_cert_file": "",
-			"store_full_message": false,
-			"expand_structured_data": false,
-			"port": 15514,
-			"tls_key_file": "",
-			"tls_enable": false,
-			"tls_key_password": "",
-			"max_message_size": 2097152,
-			"tls_client_auth": "disabled",
-			"override_source": null,
-			"allow_override_date": true
-		},
-		"static_fields": {
-			
-		},
-		"type": "org.graylog2.inputs.syslog.tcp.SyslogTCPInput",
-		"global": true,
-		"extractors": []
-	}],
-	"streams": [{
-		"id": "584195567d5d44076c4160f7",
-		"title": "BRO IDS logs",
-		"description": "Log messages from BRO IDS",
-		"disabled": false,
-		"matching_type": "AND",
-		"stream_rules": [{
-			"type": "REGEX",
-			"field": "application_name",
-			"value": "bro_*",
-			"inverted": false,
-			"description": ""
-		}],
-		"outputs": [],
-		"default_stream": false
-	}],
-	"outputs": [],
-	"dashboards": [{
-		"title": "BRO IDS Information - Last 24 Hours",
-		"description": "Display information collected from BRO running on Security Onion",
-		"dashboard_widgets": [{
-			"description": "Application Log Collections",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 300
-				},
-				"field": "application_name",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 3,
-			"row": 3,
-			"height": 2,
-			"width": 1
-		},
-		{
-			"description": "HTTP Methods",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "method",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "NOT method:\\-",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 1,
-			"row": 5,
-			"height": 1,
-			"width": 1
-		},
-		{
-			"description": "Top DNS Queries - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "query",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 3,
-			"row": 1,
-			"height": 2,
-			"width": 1
-		},
-		{
-			"description": "Top User Agents - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "user_agent",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "NOT user_agent:\\-",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 2,
-			"row": 1,
-			"height": 2,
-			"width": 1
-		},
-		{
-			"description": "Software Versions - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "unparsed_version",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "application_name:bro_software",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 1,
-			"row": 1,
-			"height": 2,
-			"width": 1
-		},
-		{
-			"description": "Status Codes - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "status_code",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 2,
-			"row": 3,
-			"height": 2,
-			"width": 1
-		},
-		{
-			"description": "Software by Type - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "software_type",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "application_name:bro_software",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 1,
-			"row": 3,
-			"height": 1,
-			"width": 1
-		},
-		{
-			"description": "DNS Response Codes - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "rcode_name",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "NOT rcode_name:\\-",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 1,
-			"row": 4,
-			"height": 1,
-			"width": 1
-		},
-		{
-			"description": "Tunnel Types - last 24 hours",
-			"type": "QUICKVALUES",
-			"cache_time": 10,
-			"configuration": {
-				"timerange": {
-					"type": "relative",
-					"range": 86400
-				},
-				"field": "tunnel_type",
-				"stream_id": "584195567d5d44076c4160f7",
-				"query": "application_name:bro_tunnels",
-				"show_data_table": true,
-				"show_pie_chart": false
-			},
-			"col": 2,
-			"row": 5,
-			"height": 1,
-			"width": 1
-		}]
-	}],
-	"grok_patterns": []
+  "v": 1,
+  "id": "4fcb47ef-1cd1-48ce-ab65-ab6706966a39",
+  "rev": 1,
+  "name": "BRO/Zeek IDS",
+  "summary": "BRO/Zeek IDS content pack.",
+  "description": "BRO/Zeek IDS content pack contains pipeline rules, a stream, a basic dashboard displaying interesting activity, and a syslog tcp input to capture and index BRO/Zeek sensor logs.",
+  "vendor": "alias454",
+  "url": "https://github.com/alias454/graylog-bro-content-pack",
+  "parameters": [
+    {
+      "name": "ids_input_port",
+      "title": "IDS Input Port",
+      "description": "Input port used for BRO/Zeek IDS content pack",
+      "type": "integer",
+      "default_value": 13514
+    }
+  ],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "fd5848f0-cbee-4dc5-b935-6baa4f0edb72",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_stats log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_stats log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_stats\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  //set_field(\"<field>\", m[<id_num>]);\n  set_field(\"ts\", m[0]);\n  set_field(\"peer\", m[1]);\n  set_field(\"mem\", to_long(m[2]));\n  set_field(\"pkts_proc\", to_long(m[3]));\n  set_field(\"bytes_recv\", to_long(m[4]));\n  set_field(\"pkts_dropped\", to_long(m[5]));\n  set_field(\"pkts_link\", to_long(m[6]));\n  set_field(\"pkt_lag\", to_double(m[7]));\n  set_field(\"events_proc\", to_long(m[8]));\n  set_field(\"events_queued\", to_long(m[9]));\n  set_field(\"active_tcp_conns\", to_long(m[10]));\n  set_field(\"active_udp_conns\", to_long(m[11]));\n  set_field(\"active_icmp_conns\", to_long(m[12]));\n  set_field(\"tcp_conns\", to_long(m[13]));\n  set_field(\"udp_conns\", to_long(m[14]));\n  set_field(\"icmp_conns\", to_long(m[15]));\n  set_field(\"timers\", to_long(m[16]));\n  set_field(\"active_timers\", to_long(m[17]));\n  set_field(\"files\", to_long(m[18]));\n  set_field(\"active_files\", to_long(m[19]));\n  set_field(\"dns_requests\", to_long(m[20]));\n  set_field(\"active_dns_requests\", to_long(m[21]));\n  set_field(\"reassem_ttp_size\", to_long(m[22]));\n  set_field(\"reassem_file_size\", to_long(m[23]));\n  set_field(\"reassem_frag_size\", to_long(m[24]));\n  set_field(\"reassem_unknown_size\", to_long(m[25]));\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "e6b4bca9-c801-4f56-b100-d779b763d893",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_snmp log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_snmp log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_snmp\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"duration\", to_double(m[6]));\n  set_field(\"version\", m[7]);\n  set_field(\"community\", m[8]);\n  set_field(\"get_requests\", to_long(m[9]));\n  set_field(\"get_bulk_requests\", to_long(m[10]));\n  set_field(\"get_responses\", to_long(m[11]));\n  set_field(\"set_requests\", to_long(m[12]));\n  set_field(\"display_string\", m[13]);\n  set_field(\"up_since\", m[14]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "de1b0bff-2064-423b-8064-e13f5aa3e628",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_sip log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_sip log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_sip\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"trans_depth\", to_long(m[6]));\n  set_field(\"method\", m[7]);\n  set_field(\"uri\", m[8]);\n  set_field(\"date\", m[9]);\n  set_field(\"request_from\", m[10]);\n  set_field(\"request_to\", m[11]);\n  set_field(\"response_from\", m[12]);\n  set_field(\"response_to\", m[13]);\n  set_field(\"reply_to\", m[14]);\n  set_field(\"call_id\", m[15]);\n  set_field(\"seq\", m[16]);\n  set_field(\"subject\", m[17]);\n  set_field(\"request_path\", m[18]);\n  set_field(\"response_path\", m[19]);\n  set_field(\"user_agent\", m[20]);\n  set_field(\"status_code\", m[21]);\n  set_field(\"Status_msg\", m[22]);\n  set_field(\"warning\", m[23]);\n  set_field(\"request_body_len\", to_long(m[24]));\n  set_field(\"response_body_len\", to_long(m[25]));\n  set_field(\"content_type\", m[26]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "4962de0f-74aa-414a-8ca0-87ea94cc9fa4",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_dhcp log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_dhcp log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_dhcp\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"mac\", m[6]);\n  set_field(\"assigned_ip\", m[7]);\n  set_field(\"lease_time\", to_long(m[8]));\n  set_field(\"trans_id\", to_long(m[9]));\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "86af2c0e-d4c0-42f9-b765-6558e7fd08f3",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_irc log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_irc log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_irc\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"nick\", m[6]);\n  set_field(\"user\", m[7]);\n  set_field(\"command\", m[8]);\n  set_field(\"value\", m[9]);\n  set_field(\"addl\", m[10]);\n  set_field(\"fuid\", m[11]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "input",
+        "version": "1"
+      },
+      "id": "4233e46f-9e63-41fb-a6d3-8c2602d90e1b",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "ids-tcp-input"
+        },
+        "configuration": {
+          "tls_key_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "port": {
+            "@value": "ids_input_port",
+            "@type": "parameter"
+          },
+          "tls_enable": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "use_null_delimiter": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "recv_buffer_size": {
+            "@type": "integer",
+            "@value": 1048576
+          },
+          "tcp_keepalive": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "force_rdns": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "allow_override_date": {
+            "@type": "boolean",
+            "@value": true
+          },
+          "tls_client_auth_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "bind_address": {
+            "@type": "string",
+            "@value": "0.0.0.0"
+          },
+          "tls_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "expand_structured_data": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "max_message_size": {
+            "@type": "integer",
+            "@value": 2097152
+          },
+          "store_full_message": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "tls_client_auth": {
+            "@type": "string",
+            "@value": "disabled"
+          },
+          "number_worker_threads": {
+            "@type": "integer",
+            "@value": 2
+          },
+          "tls_key_password": {
+            "@type": "string",
+            "@value": ""
+          }
+        },
+        "static_fields": {},
+        "type": {
+          "@type": "string",
+          "@value": "org.graylog2.inputs.syslog.tcp.SyslogTCPInput"
+        },
+        "global": {
+          "@type": "boolean",
+          "@value": true
+        },
+        "extractors": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "d219af7a-8bed-4cae-8f97-639638464087",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_broker log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_broker log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_broker\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  //set_field(\"<field>\", m[<id_num>]);\n  set_field(\"ts\", m[0]);\n  set_field(\"ty\", m[1]);\n  set_field(\"ev\", m[2]);\n  set_field(\"peer_address\", m[4]);\n  set_field(\"peer_bound_port\", m[5]);\n  set_field(\"msg\", m[6]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "id": "e55d94a8-81bb-4582-965f-8ed92b5c2f48",
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "BRO/Zeek IDS logs"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "REGEX"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "application_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "bro_*"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": ""
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Log messages from BRO/Zeek IDS"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "eb3cd447-e340-4186-8df5-3cf4178264e3",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_dce_rpc log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_dce_rpc log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_dce_rpc\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"rtt\", m[6]);\n  set_field(\"named_pipe\", m[7]);\n  set_field(\"endpoint\", m[8]);\n  set_field(\"operation\", m[9]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "65e1cd0a-135a-4cd7-a96a-db01a75258bb",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_rdp log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_rdp log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_rdp\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"cookie\", m[6]);\n  set_field(\"result\", m[7]);\n  set_field(\"security_protocol\", m[8]);\n  set_field(\"keyboard_layout\", m[9]);\n  set_field(\"client_build\", m[10]);\n  set_field(\"client_name\", m[11]);\n  set_field(\"client_dig_product_id\", m[12]);\n  set_field(\"desktop_width\", to_long(m[13]));\n  set_field(\"desktop_height\", to_long(m[14]));\n  set_field(\"requested_color_depth\", m[15]);\n  set_field(\"cert_type\", m[16]);\n  set_field(\"cert_count\", to_long(m[17]));\n  set_field(\"cert_permanent\", m[18]);\n  set_field(\"encryption_level\", m[19]);\n  set_field(\"encryption_method\", m[20]);\n  //set_field(\"ssl\", m[0]); //if policy/protocols/rdp/indicate_ssl.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "eb7a3e52-b880-423c-b169-71e31a489df2",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_weird log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_weird log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_weird\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"msg\", m[6]);\n  set_field(\"addl\", m[7]);\n  set_field(\"notice\", m[8]);\n  set_field(\"peer\", m[9]);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "4417925b-253b-4afc-82d6-cb8b8bf7ec90",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_ssl log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_ssl log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_ssl\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"version\", m[6]);\n  set_field(\"cipher\", m[7]);\n  set_field(\"curve\", m[8]);\n  set_field(\"server_name\", m[9]);\n  set_field(\"resumed\", m[10]);\n  set_field(\"last_alert\", m[11]);\n  set_field(\"next_protocol\", m[12]);\n  set_field(\"established\", m[13]);\n  set_field(\"cert_chain_fuids\", m[14]);\n  set_field(\"client_cert_chain_fuids\", m[15]);\n  set_field(\"subject\", m[16]);\n  set_field(\"issuer\", m[17]);\n  set_field(\"client_subject\", m[18]);\n  set_field(\"client_issuer\", m[19]);\n  set_field(\"validation_status\", m[20]);\n  //set_field(\"ocsp_status\", m[21]); //If policy/protocols/ssl/validate-certs.bro is loaded\n  //set_field(\"ocsp_response\", m[22]); //If policy/protocols/ssl/validate-certs.bro is loaded\n  //set_field(\"notary\", m[23]); //If policy/protocols/ssl/notary.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "0a3c9e57-3299-4639-a0e7-d398e5e05e1d",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_smb_mapping log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_smb_mapping log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_smb_mapping\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"path\", m[6]);\n  set_field(\"service\", m[7]);\n  set_field(\"native_file_system\", m[8]);\n  set_field(\"share_type\", m[9]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "cb1cca1d-be8e-4c33-af35-f958dde364cf",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_x509 log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_x509 log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_x509\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"id\", m[1]);\n  set_field(\"certificate_version\", to_long(m[2]));\n  set_field(\"certificate_serial\", m[3]);\n  set_field(\"certificate_subject\", m[4]);\n  set_field(\"certificate_issuer\", m[5]);\n  set_field(\"certificate_not_valid_before\", to_double(m[6]));\n  set_field(\"certificate_not_valid_after\", to_double(m[7]));\n  set_field(\"certificate_key_alg\", m[8]);\n  set_field(\"certificate_sig_alg\", m[9]);\n  set_field(\"certificate_key_type\", m[10]);\n  set_field(\"certificate_key_length\", to_long(m[11]));\n  set_field(\"certificate_exponent\", m[12]);\n  set_field(\"certificate_curve\", m[13]);\n  set_field(\"san_dns\", m[14]);\n  set_field(\"san_uri\", m[15]);\n  set_field(\"san_email\", m[16]);\n  set_field(\"san_ip\", m[17]);\n  set_field(\"basic_constraints_ca\", m[18]);\n  set_field(\"basic_constraints_path_len\", to_long(m[19]));\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "0468b089-6ef5-46b8-8343-55b3da3863d3",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_notice log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_notice log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_notice\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n  \n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"fuid\", m[6]);\n  set_field(\"file_mime_type\", m[7]);\n  set_field(\"file_desc\", m[8]);\n  set_field(\"proto\", m[9]);\n  set_field(\"note\", m[10]);\n  set_field(\"msg\", m[11]);\n  set_field(\"sub\", m[12]);\n  set_field(\"src\", m[13]);\n  set_field(\"dst\", m[14]);\n  set_field(\"p\", m[15]);\n  set_field(\"n\", m[16]);\n  set_field(\"peer_desc\", m[17]);\n  set_field(\"actions\", m[18]);\n  set_field(\"suppress_for\", m[19]);\n  set_field(\"dropped\", m[20]);\n  //set_field(\"remote_location_country_code\", m[21]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_region\", m[22]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_city\", m[23]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_latitude\", m[24]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_longitude\", m[25]); //If policy/protocols/ssh/geo-data.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "227d0273-6e70-4ff8-9c12-6eadf0c5144e",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_capture_loss log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_capture_loss log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_capture_loss\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  //set_field(\"<field>\", m[<id_num>]);\n  set_field(\"ts\", m[0]);\n  set_field(\"ts_delta\", m[1]);\n  set_field(\"peer\", m[2]);\n  set_field(\"gaps\", to_long(m[3]));\n  set_field(\"acks\", to_long(m[4]));\n  set_field(\"percent_lost\", to_double(m[5]));\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "881be667-55d1-44a2-bb6d-c6ac1aac4fd8",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_conn log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_conn log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_conn\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"proto\", m[6]);\n  set_field(\"service\", m[7]);\n  set_field(\"duration\", m[8]);\n  set_field(\"orig_bytes\", to_long(m[9]));\n  set_field(\"resp_bytes\", to_long(m[10]));\n  set_field(\"conn_state\", m[11]);\n  set_field(\"local_orig\", m[12]);\n  set_field(\"local_resp\", m[13]);\n  set_field(\"missed_bytes\", to_long(m[14]));\n  set_field(\"history\", m[15]);\n  set_field(\"orig_pkts\", to_long(m[16]));\n  set_field(\"orig_ip_bytes\", to_long(m[17]));\n  set_field(\"resp_pkts\", to_long(m[18]));\n  set_field(\"resp_ip_bytes\", to_long(m[19]));\n  set_field(\"tunnel_parents\", m[20]);\n  //set_field(\"orig_I2_addr\", m[21]);\n  //set_field(\"resp_I2_addr\", m[22]);\n  //set_field(\"vlan\", m[23]);\n  //set_field(\"inner_vlan\", m[24]);\n  //set_field(\"orig_cc\", m[25]);    // Used with Security Onion\n  //set_field(\"resp_cc\", m[26]);    // Used with Security Onion\n  //set_field(\"sensorname\", m[27]); // Used with Security Onion\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "dashboard",
+        "version": "1"
+      },
+      "id": "08753ddf-e712-49ce-bc62-48bf72c6283e",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "BRO/Zeek IDS Information - Last 24 Hours"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Display information collected from BRO/Zeek Sensors"
+        },
+        "widgets": [
+          {
+            "id": {
+              "@type": "string",
+              "@value": "5c4e415b-15c6-413a-af4f-a3193fd94616"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Top User Agents - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_http AND _exists_:user_agent NOT user_agent:\\-"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "user_agent"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 6
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 1
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 5
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "ee08b0cd-c2e4-4f7e-9d86-6f645004450e"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Top DNS Queries - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_dns AND _exists_:query"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "query"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 3
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 1
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 7
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "753fc070-b9e7-429a-aa16-556ca3c64d6a"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "DNS Response Codes - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_dns AND _exists_:rcode_name NOT rcode_name:\\-"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "rcode_name"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 3
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 1
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "a9df8901-683c-4749-aa0b-4f8a65925704"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Top Weird - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_weird AND _exists_:msg"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "msg"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 3
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 4
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 7
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "26e265cc-7be1-4c74-b99a-411da891c5a2"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "HTTP Methods"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_http AND _exists_:method"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "method"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 1
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 1
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "d570fb03-3741-4df6-807a-545be34e93ce"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Status Codes - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_http AND _exists_:status_code"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "status_code"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 5
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 1
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "05718578-5c6f-4a45-ad2f-41e5aff8f799"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Software Versions - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_software AND _exists_:unparsed_version"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "unparsed_version"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 3
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 1
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 3
+              }
+            }
+          },
+          {
+            "id": {
+              "@type": "string",
+              "@value": "39ef3cdc-a354-43d5-80ac-9a61bf0cabab"
+            },
+            "description": {
+              "@type": "string",
+              "@value": "Software by Type - last 24 hours"
+            },
+            "type": {
+              "@type": "string",
+              "@value": "QUICKVALUES"
+            },
+            "cache_time": {
+              "@type": "integer",
+              "@value": 10
+            },
+            "time_range": {
+              "type": {
+                "@type": "string",
+                "@value": "relative"
+              },
+              "range": {
+                "@type": "integer",
+                "@value": 86400
+              }
+            },
+            "configuration": {
+              "query": {
+                "@type": "string",
+                "@value": "application_name:bro_software AND _exists_:software_type"
+              },
+              "show_pie_chart": {
+                "@type": "boolean",
+                "@value": false
+              },
+              "sort_order": {
+                "@type": "string",
+                "@value": "desc"
+              },
+              "timerange": {
+                "type": {
+                  "@type": "string",
+                  "@value": "relative"
+                },
+                "range": {
+                  "@type": "integer",
+                  "@value": 86400
+                }
+              },
+              "stacked_fields": {
+                "@type": "string",
+                "@value": ""
+              },
+              "data_table_limit": {
+                "@type": "integer",
+                "@value": 50
+              },
+              "field": {
+                "@type": "string",
+                "@value": "software_type"
+              },
+              "stream_id": {
+                "@type": "string",
+                "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+              },
+              "show_data_table": {
+                "@type": "boolean",
+                "@value": true
+              },
+              "limit": {
+                "@type": "integer",
+                "@value": 5
+              }
+            },
+            "position": {
+              "width": {
+                "@type": "integer",
+                "@value": 2
+              },
+              "height": {
+                "@type": "integer",
+                "@value": 3
+              },
+              "row": {
+                "@type": "integer",
+                "@value": 4
+              },
+              "col": {
+                "@type": "integer",
+                "@value": 3
+              }
+            }
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "7ad681d5-daa9-4dec-b7f7-c1fc589576e1",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_smb_files log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_smb_files log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_smb_files\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"fuid\", m[6]);\n  set_field(\"action\", m[7]);\n  set_field(\"path\", m[8]);\n  set_field(\"name\", m[9]);\n  set_field(\"size\", m[10]);\n  set_field(\"prev_name\", m[11]);\n  set_field(\"times\", m[12]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "bd94ae8c-505a-4851-80bc-a1696d76f291",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_cluster log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_cluster log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_cluster\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  //set_field(\"<field>\", m[<id_num>]);\n  set_field(\"ts\", m[0]);\n  set_field(\"node\", m[1]);\n  set_field(\"message\", m[2]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "ec4bb7af-1ff2-416e-90a7-6000cd4b968a",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_tunnel log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_tunnel log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_tunnel\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"tunnel_type\", m[6]);\n  set_field(\"action\", m[7]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "d6f5341d-4208-490f-bf28-6d49f1505204",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_mysql log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_mysql log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_mysql\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"cmd\", m[6]);\n  set_field(\"arg\", m[7]);\n  set_field(\"success\", m[8]);\n  set_field(\"rows\", to_long(m[9]));\n  set_field(\"response\", m[10]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "ac5c7399-8e2e-47b4-a2e8-a005662e4b14",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_software log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_software log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_software\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n  \n  set_field(\"ts\", m[0]);\n  set_field(\"id_orig_h\", m[1]);\n  set_field(\"id_orig_p\", to_long(m[2]));\n  set_field(\"software_type\", m[3]);\n  set_field(\"name\", m[4]);\n  set_field(\"version_major\", m[5]);\n  set_field(\"version_minor\", m[6]);\n  set_field(\"version_minor2\", m[7]);\n  set_field(\"version_minor3\", m[8]);\n  set_field(\"version_addl\", m[9]);\n  set_field(\"unparsed_version\", m[10]);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "dffd4154-adcf-4583-989e-3ebf21ac4c46",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_pe log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_pe log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_pe\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"id\", m[1]);\n  set_field(\"machine\", m[2]);\n  set_field(\"compile_ts\", to_double(m[3]));\n  set_field(\"os\", m[4]);\n  set_field(\"subsystem\", m[5]);\n  set_field(\"is_exe\", m[6]);\n  set_field(\"is_64bit\", m[7]);\n  set_field(\"uses_aslr\", m[8]);\n  set_field(\"uses_dep\", m[9]);\n  set_field(\"uses_code_integrity\", m[10]);\n  set_field(\"uses_seh\", m[11]);\n  set_field(\"has_import_table\", m[12]);\n  set_field(\"has_export_table\", m[13]);\n  set_field(\"has_cert_table\", m[14]);\n  set_field(\"has_debug_data\", m[15]);\n  set_field(\"section_names\", m[16]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "a3ef65e4-c6f8-4349-9156-db25a9dad610",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_radius log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_radius log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_radius\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"username\", m[6]);\n  set_field(\"mac\", m[7]);\n  set_field(\"remote_ip\", m[8]);\n  set_field(\"connect_info\", m[9]);\n  set_field(\"result\", m[10]);\n  set_field(\"framed_addr\", m[11]);\n  set_field(\"reply_msg\", m[12]);\n  set_field(\"ttl\", m[13]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "4115e261-3021-49ca-a55f-2a8f8e445277",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_kerberos log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_kerberos log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_kerberos\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"request_type\", m[6]);\n  set_field(\"client\", m[7]);\n  set_field(\"service\", m[8]);\n  set_field(\"success\", m[9]);\n  set_field(\"error_code\", m[10]);\n  set_field(\"error_msg\", m[11]);\n  set_field(\"from\", m[12]);\n  set_field(\"till\", to_double(m[13]));\n  set_field(\"cipher\", m[14]);\n  set_field(\"forwardable\", m[15]);\n  set_field(\"renewable\", m[16]);\n  set_field(\"client_cert_subject\", m[17]);\n  set_field(\"client_cert_fuid\", m[18]);\n  set_field(\"server_cert_subject\", m[19]);\n  set_field(\"server_cert_fuid\", m[20]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "819a2a00-cd64-4468-b88b-e4aa779e9c6c",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_dns log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_dns log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_dns\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"proto\", m[6]);\n  set_field(\"trans_id\", m[7]);\n  set_field(\"rtt\", m[8]);\n  set_field(\"query\", m[9]);\n  set_field(\"qclass\", to_long(m[10]));\n  set_field(\"qclass_name\", m[11]);\n  set_field(\"qtype\", to_long(m[12]));\n  set_field(\"qtype_name\", m[13]);\n  set_field(\"rcode\", to_long(m[14]));\n  set_field(\"rcode_name\", m[15]);\n  set_field(\"AA\", m[16]);\n  set_field(\"TC\", m[17]);\n  set_field(\"RD\", m[18]);\n  set_field(\"RA\", m[19]);\n  set_field(\"Z\", to_long(m[20]));\n  set_field(\"answers\", m[21]);\n  set_field(\"TTLs\", m[22]);\n  set_field(\"rejected\", m[23]);\n  //set_field(\"auth\", m[0]); //If policy/protocols/dns/auth-addl.bro is loaded\n  //set_field(\"addl\", m[0]); //If policy/protocols/dns/auth-addl.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "896ed12f-1182-4a2c-afa0-6b0ee0b8b54c",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_http log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_http log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_http\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"trans_depth\", m[6]);\n  set_field(\"method\", m[7]);\n  set_field(\"host\", m[8]);\n  set_field(\"uri\", m[9]);\n  set_field(\"referrer\", m[10]);\n  set_field(\"version\", m[11]);\n  set_field(\"user_agent\", m[12]);\n  set_field(\"origin\", m[13]);\n  set_field(\"request_body_len\", m[14]);\n  set_field(\"response_body_len\", m[15]);\n  set_field(\"status_code\", m[16]);\n  set_field(\"status_msg\", m[17]);\n  set_field(\"info_code\", m[18]);\n  set_field(\"info_msg\", m[19]);\n  set_field(\"tags\", m[20]);\n  set_field(\"username\", m[21]);\n  set_field(\"password\", m[22]);\n  set_field(\"proxied\", m[23]);\n  set_field(\"orig_fuids\", m[24]);\n  set_field(\"orig_filenames\", m[25]);\n  set_field(\"orig_mime_types\", m[26]);\n  set_field(\"resp_fuids\", m[27]);\n  set_field(\"resp_filenames\", m[28]);\n  set_field(\"resp_mime_types\", m[29]);\n  //set_field(\"client_header_names\", m[0]); //If policy/protocols/http/header-names.bro is loaded\n  //set_field(\"server_header_names\", m[0]); //If policy/protocols/http/header-names.bro is loaded\n  //set_field(\"cookie_vars\", m[0]); //If policy/protocols/http/var-extraction-uri.bro is loaded\n  //set_field(\"uri_vars\", m[0]); //If policy/protocols/http/var-extraction-uri.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "8df15896-d66f-4e6a-808f-fc10c4b75ac7",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_ftp log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_ftp log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_ftp\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"user\", m[6]);\n  set_field(\"password\", m[7]);\n  set_field(\"command\", m[8]);\n  set_field(\"arg\", m[9]);\n  set_field(\"mime_type\", m[10]);\n  set_field(\"file_size\", to_long(m[11]));\n  set_field(\"reply_code\", to_long(m[12]));\n  set_field(\"reply_msg\", m[13]);\n  set_field(\"data_channel_passive\", m[14]);\n  set_field(\"data_channel_orig_h\", m[15]);\n  set_field(\"data_channel_resp_h\", m[16]);\n  set_field(\"data_channel_resp_p\", to_long(m[17]));\n  set_field(\"fuid\", m[18]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "ebf1a306-0659-4508-856e-20225ba1aba5",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_ssh log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_ssh log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_ssh\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"version\", to_long(m[6]));\n  set_field(\"auth_success\", m[7]);\n  set_field(\"auth_attempts\", to_long(m[8]));\n  set_field(\"direction\", m[9]);\n  set_field(\"client\", m[10]);\n  set_field(\"server\", m[11]);\n  set_field(\"cipher_alg\", m[12]);\n  set_field(\"mac_alg\", m[13]);\n  set_field(\"compression_alg\", m[14]);\n  set_field(\"kex_alg\", m[15]);\n  set_field(\"host_key_alg\", m[16]);\n  set_field(\"host_key\", m[17]);\n  //set_field(\"remote_location_country_code\", m[18]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_region\", m[19]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_city\", m[20]); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_latitude\", to_double(m[21])); //If policy/protocols/ssh/geo-data.bro is loaded\n  //set_field(\"remote_location_longitude\", to_double(m[22])); //If policy/protocols/ssh/geo-data.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline",
+        "version": "1"
+      },
+      "id": "fa8ea074-15c2-4058-9f56-ac31ca437045",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "BRO/Zeek IDS pipeline"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Setup rules for BRO/Zeek IDS log parsing"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "pipeline \"BRO/Zeek IDS pipeline\"\nstage 0 match either\nrule \"Extract bro_broker log fields\"\nrule \"Extract bro_capture_loss log fields\"\nrule \"Extract bro_cluster log fields\"\nrule \"Extract bro_conn log fields\"\nrule \"Extract bro_dce_rpc log fields\"\nrule \"Extract bro_dhcp log fields\"\nrule \"Extract bro_dns log fields\"\nrule \"Extract bro_dns log fields\"\nrule \"Extract bro_files log fields\"\nrule \"Extract bro_ftp log fields\"\nrule \"Extract bro_http log fields\"\nrule \"Extract bro_irc log fields\"\nrule \"Extract bro_kerberos log fields\"\nrule \"Extract bro_mysql log fields\"\nrule \"Extract bro_notice log fields\"\nrule \"Extract bro_ntlm log fields\"\nrule \"Extract bro_packet_filter log fields\"\nrule \"Extract bro_pe log fields\"\nrule \"Extract bro_radius log fields\"\nrule \"Extract bro_rdp log fields\"\nrule \"Extract bro_sip log fields\"\nrule \"Extract bro_smb_files log fields\"\nrule \"Extract bro_smb_mapping log fields\"\nrule \"Extract bro_smtp log fields\"\nrule \"Extract bro_snmp log fields\"\nrule \"Extract bro_snmp log fields\"\nrule \"Extract bro_software log fields\"\nrule \"Extract bro_ssh log fields\"\nrule \"Extract bro_ssl log fields\"\nrule \"Extract bro_stats log fields\"\nrule \"Extract bro_tunnel log fields\"\nrule \"Extract bro_weird log fields\"\nrule \"Extract bro_x509 log fields\"\nend"
+        },
+        "connected_streams": [
+          {
+            "@type": "string",
+            "@value": "e55d94a8-81bb-4582-965f-8ed92b5c2f48"
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "a0405e69-2d8b-407e-9cb3-9afccafc672f",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_packet_filter log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_packet_filter log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_packet_filter\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  //set_field(\"<field>\", m[<id_num>]);\n  set_field(\"ts\", m[0]);\n  set_field(\"node\", m[1]);\n  set_field(\"filter\", m[2]);\n  set_field(\"init\", to_long(m[3]));\n  set_field(\"success\", m[4]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "3b099cc3-f191-4a00-8cc9-f856fe967417",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_files log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_files log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_files\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"fuid\", m[1]);\n  set_field(\"tx_hosts\", m[2]);\n  set_field(\"rx_hosts\", m[3]);\n  set_field(\"conn_uids\", m[4]);\n  set_field(\"f_source\", m[5]);\n  set_field(\"depth\",to_long(m[6]));\n  set_field(\"analyzers\", m[7]);\n  set_field(\"mime_type\", m[8]);\n  set_field(\"filename\", m[9]);\n  set_field(\"duration\",to_double(m[10]));\n  set_field(\"local_orig\", m[11]);\n  set_field(\"is_orig\", m[12]);\n  set_field(\"seen_bytes\",to_long(m[13]));\n  set_field(\"total_bytes\",to_long(m[14]));\n  set_field(\"missing_bytes\",to_long(m[15]));\n  set_field(\"overflow_bytes\",to_long(m[16]));\n  set_field(\"timedout\", m[17]);\n  set_field(\"parent_fuid\", m[18]);\n  set_field(\"md5\", m[19]);\n  set_field(\"sha1\", m[20]);\n  set_field(\"sha256\", m[21]);\n  set_field(\"extracted\", m[22]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "dd596f31-699a-46a7-a126-4f83620e1dd8",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_ntlm log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_ntlm log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_ntlm\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", m[0]);\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"username\", m[6]);\n  set_field(\"hostname\", m[7]);\n  set_field(\"domainname\", m[8]);\n  set_field(\"success\", m[9]);\n  set_field(\"status\", m[10]);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "9272a94c-da6f-449a-816f-faeae867c327",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Extract bro_smtp log fields"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Extract bro_smtp log fields\"\nwhen\n  has_field(\"application_name\") &&\n  contains(value: to_string($message.application_name), search: \"bro_smtp\", ignore_case: true)\nthen\n  let m = split(\"\\\\|\", to_string($message.message));\n\n  set_field(\"ts\", to_double(m[0]));\n  set_field(\"uid\", m[1]);\n  set_field(\"id_orig_h\", m[2]);\n  set_field(\"id_orig_p\", to_long(m[3]));\n  set_field(\"id_resp_h\", m[4]);\n  set_field(\"id_resp_p\", to_long(m[5]));\n  set_field(\"trans_depth\", to_long(m[6]));\n  set_field(\"helo\", m[7]);\n  set_field(\"mailfrom\", m[8]);\n  set_field(\"rcptto\", m[9]);\n  set_field(\"date\", m[10]);\n  set_field(\"from\", m[11]);\n  set_field(\"to\", m[12]);\n  set_field(\"cc\", m[13]);\n  set_field(\"reply_to\", m[14]);\n  set_field(\"msg_id\", m[15]);\n  set_field(\"in_reply_to\", m[16]);\n  set_field(\"subject\", m[17]);\n  set_field(\"x_originating_ip\", m[18]);\n  set_field(\"first_received\", m[19]);\n  set_field(\"second_received\", m[20]);\n  set_field(\"last_reply\", m[21]);\n  set_field(\"path\", m[22]);\n  set_field(\"user_agent\", m[23]);\n  set_field(\"tls\", m[24]);\n  set_field(\"fuids\", m[25]);\n  set_field(\"is_webmail\", m[26]); //If policy/protocols/smtp/software.bro is loaded\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.0.0+db6cf59"
+        }
+      ]
+    }
+  ]
 }
