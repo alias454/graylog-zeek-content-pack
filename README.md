@@ -19,7 +19,7 @@ An Input: ids-tcp-input (default port 13514)
 Pipeline rules to get started with  
 Rsyslog conf to get started with  
   > **00-bro.conf** should go in the /etc/rsyslog.d/ directory after editing the appropriate values for your setup
-  > If selinux is enabled run **semanage port -a -t syslogd_port_t -p tcp 15514**
+  > If selinux is enabled run **semanage port -a -t syslogd_port_t -p tcp 13514**
 
 # Requirements
 Graylog v3.x.x or later for new content pack handling features  
