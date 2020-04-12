@@ -1,0 +1,42 @@
+rule "Extract zeek_http log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_http", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", m[0]);
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", to_long(m[3]));
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", to_long(m[5]));
+  set_field("trans_depth", m[6]);
+  set_field("method", m[7]);
+  set_field("host", m[8]);
+  set_field("uri", m[9]);
+  set_field("referrer", m[10]);
+  set_field("version", m[11]);
+  set_field("user_agent", m[12]);
+  set_field("origin", m[13]);
+  set_field("request_body_len", m[14]);
+  set_field("response_body_len", m[15]);
+  set_field("status_code", m[16]);
+  set_field("status_msg", m[17]);
+  set_field("info_code", m[18]);
+  set_field("info_msg", m[19]);
+  set_field("tags", m[20]);
+  set_field("username", m[21]);
+  set_field("password", m[22]);
+  set_field("proxied", m[23]);
+  set_field("orig_fuids", m[24]);
+  set_field("orig_filenames", m[25]);
+  set_field("orig_mime_types", m[26]);
+  set_field("resp_fuids", m[27]);
+  set_field("resp_filenames", m[28]);
+  set_field("resp_mime_types", m[29]);
+  //set_field("client_header_names", m[0]); //If policy/protocols/http/header-names.zeek is loaded
+  //set_field("server_header_names", m[0]); //If policy/protocols/http/header-names.zeek is loaded
+  //set_field("cookie_vars", m[0]); //If policy/protocols/http/var-extraction-uri.zeek is loaded
+  //set_field("uri_vars", m[0]); //If policy/protocols/http/var-extraction-uri.zeek is loaded
+end

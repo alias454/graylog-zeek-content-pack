@@ -1,0 +1,22 @@
+rule "Extract zeek_radius log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_radius", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", m[0]);
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", to_long(m[3]));
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", to_long(m[5]));
+  set_field("username", m[6]);
+  set_field("mac", m[7]);
+  set_field("remote_ip", m[8]);
+  set_field("connect_info", m[9]);
+  set_field("result", m[10]);
+  set_field("framed_addr", m[11]);
+  set_field("reply_msg", m[12]);
+  set_field("ttl", m[13]);
+end

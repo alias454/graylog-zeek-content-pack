@@ -1,0 +1,27 @@
+rule "Extract zeek_ftp log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_ftp", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", to_double(m[0]));
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", to_long(m[3]));
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", to_long(m[5]));
+  set_field("user", m[6]);
+  set_field("password", m[7]);
+  set_field("command", m[8]);
+  set_field("arg", m[9]);
+  set_field("mime_type", m[10]);
+  set_field("file_size", to_long(m[11]));
+  set_field("reply_code", to_long(m[12]));
+  set_field("reply_msg", m[13]);
+  set_field("data_channel_passive", m[14]);
+  set_field("data_channel_orig_h", m[15]);
+  set_field("data_channel_resp_h", m[16]);
+  set_field("data_channel_resp_p", to_long(m[17]));
+  set_field("fuid", m[18]);
+end

@@ -1,0 +1,34 @@
+rule "Extract zeek_dns log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_dns", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", m[0]);
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", to_long(m[3]));
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", to_long(m[5]));
+  set_field("proto", m[6]);
+  set_field("trans_id", m[7]);
+  set_field("rtt", m[8]);
+  set_field("query", m[9]);
+  set_field("qclass", to_long(m[10]));
+  set_field("qclass_name", m[11]);
+  set_field("qtype", to_long(m[12]));
+  set_field("qtype_name", m[13]);
+  set_field("rcode", to_long(m[14]));
+  set_field("rcode_name", m[15]);
+  set_field("AA", m[16]);
+  set_field("TC", m[17]);
+  set_field("RD", m[18]);
+  set_field("RA", m[19]);
+  set_field("Z", to_long(m[20]));
+  set_field("answers", m[21]);
+  set_field("TTLs", m[22]);
+  set_field("rejected", m[23]);
+  //set_field("auth", m[0]); //If policy/protocols/dns/auth-addl.zeek is loaded
+  //set_field("addl", m[0]); //If policy/protocols/dns/auth-addl.zeek is loaded
+end

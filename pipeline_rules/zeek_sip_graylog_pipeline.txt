@@ -1,0 +1,35 @@
+rule "Extract zeek_sip log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_sip", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", m[0]);
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", to_long(m[3]));
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", to_long(m[5]));
+  set_field("trans_depth", to_long(m[6]));
+  set_field("method", m[7]);
+  set_field("uri", m[8]);
+  set_field("date", m[9]);
+  set_field("request_from", m[10]);
+  set_field("request_to", m[11]);
+  set_field("response_from", m[12]);
+  set_field("response_to", m[13]);
+  set_field("reply_to", m[14]);
+  set_field("call_id", m[15]);
+  set_field("seq", m[16]);
+  set_field("subject", m[17]);
+  set_field("request_path", m[18]);
+  set_field("response_path", m[19]);
+  set_field("user_agent", m[20]);
+  set_field("status_code", m[21]);
+  set_field("Status_msg", m[22]);
+  set_field("warning", m[23]);
+  set_field("request_body_len", to_long(m[24]));
+  set_field("response_body_len", to_long(m[25]));
+  set_field("content_type", m[26]);
+end

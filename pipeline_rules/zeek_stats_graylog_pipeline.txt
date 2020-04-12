@@ -1,0 +1,35 @@
+rule "Extract zeek_stats log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_stats", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  //set_field("<field>", m[<id_num>]);
+  set_field("ts", m[0]);
+  set_field("peer", m[1]);
+  set_field("mem", to_long(m[2]));
+  set_field("pkts_proc", to_long(m[3]));
+  set_field("bytes_recv", to_long(m[4]));
+  set_field("pkts_dropped", to_long(m[5]));
+  set_field("pkts_link", to_long(m[6]));
+  set_field("pkt_lag", to_double(m[7]));
+  set_field("events_proc", to_long(m[8]));
+  set_field("events_queued", to_long(m[9]));
+  set_field("active_tcp_conns", to_long(m[10]));
+  set_field("active_udp_conns", to_long(m[11]));
+  set_field("active_icmp_conns", to_long(m[12]));
+  set_field("tcp_conns", to_long(m[13]));
+  set_field("udp_conns", to_long(m[14]));
+  set_field("icmp_conns", to_long(m[15]));
+  set_field("timers", to_long(m[16]));
+  set_field("active_timers", to_long(m[17]));
+  set_field("files", to_long(m[18]));
+  set_field("active_files", to_long(m[19]));
+  set_field("dns_requests", to_long(m[20]));
+  set_field("active_dns_requests", to_long(m[21]));
+  set_field("reassem_ttp_size", to_long(m[22]));
+  set_field("reassem_file_size", to_long(m[23]));
+  set_field("reassem_frag_size", to_long(m[24]));
+  set_field("reassem_unknown_size", to_long(m[25]));
+end

@@ -1,16 +1,18 @@
-rule "Extract zeek_<tag> log fields"
+rule "Extract zeek_weird log fields"
 when
   has_field("application_name") &&
-  contains(value: to_string($message.application_name), search: "zeek_<tag>", ignore_case: true)
+  contains(value: to_string($message.application_name), search: "zeek_weird", ignore_case: true)
 then
   let m = split("\\|", to_string($message.message));
 
-  //set_field("<field>", m[<id_num>]);
   set_field("ts", m[0]);
   set_field("uid", m[1]);
   set_field("id_orig_h", m[2]);
   set_field("id_orig_p", to_long(m[3]));
   set_field("id_resp_h", m[4]);
   set_field("id_resp_p", to_long(m[5]));
-  //set_field("<field>", m[<0>]);
+  set_field("msg", m[6]);
+  set_field("addl", m[7]);
+  set_field("notice", m[8]);
+  set_field("peer", m[9]);
 end

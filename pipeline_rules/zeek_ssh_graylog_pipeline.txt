@@ -1,0 +1,31 @@
+rule "Extract zeek_ssh log fields"
+when
+  has_field("application_name") &&
+  contains(value: to_string($message.application_name), search: "zeek_ssh", ignore_case: true)
+then
+  let m = split("\\|", to_string($message.message));
+
+  set_field("ts", to_double(m[0]));
+  set_field("uid", m[1]);
+  set_field("id_orig_h", m[2]);
+  set_field("id_orig_p", to_long(m[3]));
+  set_field("id_resp_h", m[4]);
+  set_field("id_resp_p", to_long(m[5]));
+  set_field("version", to_long(m[6]));
+  set_field("auth_success", m[7]);
+  set_field("auth_attempts", to_long(m[8]));
+  set_field("direction", m[9]);
+  set_field("client", m[10]);
+  set_field("server", m[11]);
+  set_field("cipher_alg", m[12]);
+  set_field("mac_alg", m[13]);
+  set_field("compression_alg", m[14]);
+  set_field("kex_alg", m[15]);
+  set_field("host_key_alg", m[16]);
+  set_field("host_key", m[17]);
+  //set_field("remote_location_country_code", m[18]); //If policy/protocols/ssh/geo-data.zeek is loaded
+  //set_field("remote_location_region", m[19]); //If policy/protocols/ssh/geo-data.zeek is loaded
+  //set_field("remote_location_city", m[20]); //If policy/protocols/ssh/geo-data.zeek is loaded
+  //set_field("remote_location_latitude", to_double(m[21])); //If policy/protocols/ssh/geo-data.zeek is loaded
+  //set_field("remote_location_longitude", to_double(m[22])); //If policy/protocols/ssh/geo-data.zeek is loaded
+end
